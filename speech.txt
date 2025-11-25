@@ -1,0 +1,11 @@
+Welcome to Pixel Learning Company's accessible education platform.
+
+This is a demonstration of our automated text to speech pipeline using Amazon Polly.
+
+Our mission is to make quality education accessible to everyone, regardless of their learning preferences or abilities.
+
+By converting text content to natural-sounding audio, we enable students to learn while commuting, exercising, or simply relaxing.
+
+This technology leverages artificial intelligence to produce lifelike speech in multiple languages and voices.
+
+Thank you for being part of our journey toward more inclusive education.
