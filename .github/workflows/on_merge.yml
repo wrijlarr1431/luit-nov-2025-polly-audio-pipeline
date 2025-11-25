@@ -1,0 +1,54 @@
+name: Production Audio Generation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'speech.txt'
+
+permissions:
+  contents: read
+
+jobs:
+  generate-production-audio:
+    name: Generate Production Audio
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install boto3
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      
+      - name: Generate production audio
+        env:
+          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          ENVIRONMENT: prod
+        run: |
+          python synthesize.py
+      
+      - name: Create summary
+        run: |
+          echo "## 🎉 Production Audio Deployed!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** Production" >> $GITHUB_STEP_SUMMARY
+          echo "**S3 Location:** \`s3://${{ secrets.S3_BUCKET_NAME }}/polly-audio/prod.mp3\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Voice:** Joanna (Neural)" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** Live and ready for users" >> $GITHUB_STEP_SUMMARY
