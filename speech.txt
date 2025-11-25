@@ -9,3 +9,7 @@ By converting text content to natural-sounding audio, we enable students to lear
 This technology leverages artificial intelligence to produce lifelike speech in multiple languages and voices.
 
 Thank you for being part of our journey toward more inclusive education.
+
+We are excited to announce new features including multi-language support, adjustable playback speeds, and downloadable audio files for offline learning.
+
+Join us in making education accessible for everyone, everywhere.
